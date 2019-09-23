@@ -2,56 +2,19 @@
 <!DOCTYPE html>
 <html>
 <body>
-  <div id="bg_menu">
-    <input type="checkbox" class="nav__cb" id="menu-cb">
-    <label class="nav__btn" for="menu-cb"></label>
+  <div id="bg_menu" style="background-color:black">
+    <script>
+        for(let i = 0 ;i <5;i++){
+          let a = document.createComment("div")
+        }
+      </script>
   </div>
 </body>
 </html>
 <style>
-.nav__btn {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 90px;
-  height: 90px;
-  padding: 36px 31px;
-  cursor: pointer;
-}
-.nav__btn:before, .nav__btn:after {
-  content: "";
-  display: block;
-  width: 28px;
-  height: 4px;
-  border-radius: 2px;
-  background: #096DD3;
-  -webkit-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
-  -webkit-transition: background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-  transition: background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-  transition: transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3), background-color 0.3s;
-  transition: transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3), background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-}
-.nav__btn:before {
-  margin-bottom: 10px;
-}
-.nav__btn:hover:before, .nav__btn:hover:after {
-  background: #00bdea;
-}
-.nav__cb:checked ~ .nav__btn:before {
-  -webkit-transform: translateY(7px) rotate(-225deg);
-          transform: translateY(7px) rotate(-225deg);
-}
-.nav__cb:checked ~ .nav__btn:after {
-  -webkit-transform: translateY(-7px) rotate(225deg);
-          transform: translateY(-7px) rotate(225deg);
-}
-.nav__cb {
-  z-index: -1000;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  pointer-events: none;
-}
+  div{
+    width: 50%;
+    height:50%;
+    background-color: wheat;
+  }
 </style>

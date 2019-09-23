@@ -1,19 +1,19 @@
 <template>
+
   <div id="LAYER_ALL">
     <div id="LAYER_MID">
+        <router-view name="blg"></router-view>
         <div id="smart-object-right" >
           <transition-group id="up" name="cead" enter-active-class="animated slideInDown" leave-active-class="animated slideOutDown">
             <li class="liImage" v-for="(item,index) in rightImg" :key="item.id" v-show="index === currentIndex">
               <img :src="item.src">
             </li>
           </transition-group>
-
           <transition-group id="down" name="cead" enter-active-class="animated slideInUp" leave-active-class="animated slideOutUp" >
             <li class="liImage" v-for="(item,index) in rightImg" :key="item.id" v-show="index === currentIndex" >
               <img :src="item.src">
             </li>
           </transition-group>
-
           <div class="smart-object" style="position: absolute; transform-style: flat; backface-visibility: hidden; transform: translate3d(0px, 0px, 0px); width: 100%; height: 100%; overflow: hidden;">
             <div class="smart-object" style="position: absolute; transform-style: flat; backface-visibility: hidden; transform: translate3d(0px, 0px, 0px); z-index: 999; width: 663px; height: 100%;">
               <div class="smart-object" style="position: absolute; transform-style: flat; backface-visibility: hidden; transform: translate3d(0px, 0px, 0px); display: block; width: 100%; height: auto; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: 20px 0px 20px 20px;">
@@ -21,7 +21,7 @@
                   <div class="smart-object-bg1"></div>
                   <div class="smart-object-bg2"></div>
                   <div class="smart-object-title" >
-                    <div class="smart-object-txt">
+                    <div class="smart-object-txt" @click="seeMore">
                       <span style="position: relative;left: -85px;display: block; font-size: 18px; margin-bottom: 30px; color: rgb(112, 102, 95); opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">Case</span>
                       <transition-group name="fade" enter-active-class="animated bounceInLeft" >
                         <li  v-for="(item,index) in h" :key="item.id" v-show="index === hIndex" style="display: block;  list-style none; font-size: 33px; line-height: 35.75px;margin-left: -2px; padding-left: 2px; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
@@ -67,7 +67,7 @@
                 <div class="smart-object-title" >
                   <div class="nav one">Home</div>
                   <div class="nav two">Music</div>
-                  <div class="nav three">Weblog</div>
+                  <div class="nav three" @click="blog">Weblog</div>
                   <div class="nav four">Photo  Sessions</div>
                   <div class="nav five" style="margin-top:20px;">Author</div>
                 </div>
@@ -77,9 +77,9 @@
         </div>
       </div>
     </div>
-    <div id="LAYER_TOP">
-      <input type="checkbox" class="nav__cb" id="menu-cb">
-      <label class="nav__btn" for="menu-cb" @click="change"></label>
+    <div id="LAYER_TOP"   @click="change">
+      <label id="nav_before"></label>
+      <label id="nav_after"  ></label>
     </div>
   </div>
 </template>
@@ -96,34 +96,47 @@ export default {
       title:[],
       currentIndex:0,
       carouselTimer:null,
-      cgItem:1,
+      cgItem:0,
       isDisabled:false,
       bgImage:[],
       rightImg:[
          {
-        id:'1',
+        id:'0',
         src:require('../assets/image/login.jpg')
         },
         {
-        id:'2',
+        id:'1',
         src:require('../assets/image/music.jpg')
         },
         {
-        id:'3',
+        id:'2',
         src:require('../assets/image/xk.jpg')
         },
         {
-        id:'4',
+        id:'3',
         src:require('../assets/image/br.jpg')
         }
       ]
     }
   },
-  mounted () {
-    this._begin()
+  created () {
     this.getDate()
   },
+  mounted () {
+    this._begin()
+  },
   methods: {
+    seeMore(){
+      if(this.hIndex == 0){
+        this.$router.push('/Right')
+        let min = document.getElementById('LAYER_MID')
+        min.style.transform = 'translateX(-1366px)'
+        min.style.transition = 'all 2s'
+      this.cgItem = 2
+      }else {
+        alert('xxx')
+      }
+    },
     getDate(){
       axios.get('http://localhost:3000/h').then((res)=>{
         this.h = res.data
@@ -196,25 +209,38 @@ export default {
       document.getElementById('down').style.display = 'none'
     },
     change(){
-      if(this.cgItem == 1){
+      if(this.cgItem == 0){
         let min = document.getElementById('smart-object-right')
         min.style.transform = 'translateX(1366px)'
         min.style.transition = 'all 2s'
         let x = document.getElementById('smart-object-left')
         x.style.transform = 'translateX(0px)'
         x.style.transition = 'all 2s'
-        this.cgItem = 0
+        this.cgItem = 1
         console.log(this.cgItem)
-      }else if(this.cgItem == 0){
+      }else if(this.cgItem == 1){
         let min = document.getElementById('smart-object-right')
         min.style.transform = 'translateX(0px)'
         min.style.transition = 'all 2s'
         let x = document.getElementById('smart-object-left')
         x.style.transform = 'translateX(-1366px)'
         x.style.transition = 'all 2s'
-        this.cgItem = 1
-        console.log(this.cgItem)
+        this.cgItem = 0
+      }else{
+        let x = document.getElementById('one')
+        x.style.transform = 'translateX(1366px)'
+        x.style.transition = 'all 2s'
+         let min = document.getElementById('LAYER_MID')
+        min.style.transform = 'translateX(0px)'
+        min.style.transition = 'all 2s'
+        this.cgItem = 0
       }
+    },
+    blog(){
+      this.cgItem = 2
+      let x = document.getElementById('smart-object-left')
+        x.style.transform = 'translateX(0px)'
+        x.style.transition = 'all 2s'
     }
   },
   watch: {
@@ -225,216 +251,63 @@ export default {
         _this.isDisabled = false
       },5000)
       }
+    },
+    cgItem(val){
+      let _this = this
+      if(this.cgItem == 1){
+        document.getElementById('nav_after').setAttribute("class","after")
+        document.getElementById('nav_before').setAttribute("class","before")
+      }else if(this.cgItem == 0){
+        document.getElementById("nav_after").classList.remove("after")
+        document.getElementById("nav_before").classList.remove("before")
+      setTimeout(function(){
+        _this.$router.push('/')
+      },1000)
+      }else if(this.cgItem == 2){
+        document.getElementById('nav_after').setAttribute("class","after")
+        document.getElementById('nav_before').setAttribute("class","before")
+      }
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-#LAYER_ALL{
-  backface-visibility: visible;
-  position: absolute; 
-  width: 100%; 
-  height: 100%; 
-  overflow: hidden visible;
-}
-#LAYER_MID{
-  position: absolute; 
-  z-index: 2; 
-  width: 100%; 
-  height: 100%;
-}
-.liImage{
-  list-style none
-  background-repeat:no-repeat;
-  background-size:100% 100%;
-  -moz-background-size:100% 100%;
-  position: absolute; transform-style: flat; 
-  backface-visibility: hidden; 
-  transform: matrix(1, 0, 0, 1, 0, 0); 
-  width: 100%; height: 100%; opacity: 1;
-  overflow: hidden;
-}
-img{
-  overflow: hidden;
-  background-repeat:no-repeat;
-  background-size:100% 100%;
-  -moz-background-size:100% 100%;
-  position: absolute; transform-style: flat; 
-  backface-visibility: hidden; 
-  transform: matrix(1, 0, 0, 1, 0, 0); 
-  width: 100%; height: 100%; opacity: 1;
-}
-#smart-object-right{
-  overflow: hidden;
-  position: absolute; transform-style: flat; 
-  backface-visibility: hidden; 
-  transform: matrix(1, 0, 0, 1, 0, 0); 
-  width: 100%; height: 100%; opacity: 1;
-  z-index: 3;
-}
-.smart-object-bg1{
-  width 200px
-  height 400px
-  position absolute
-  top 90px
-  left 40px
-  background-image :url('../assets/image/title.png')
-}
-.smart-object-bg2{
-  width 400px
-  height 104px
-  position absolute
-  top 20px
-  left 200px
-  background-image :url('../assets/image/tit.png')
-}
-#LAYER_TOP{
-  z-index 100
-  width: 46px; height: 46px; 
-  border-radius: 23px; 
-  position absolute
-  left:40px;
-  top:40px; 
-  background-color #fff
-}
-.nav__btn {
+@import "../assets/style/login.styl";
+#nav_before,#nav_after{
   position: absolute;
-  right: -9px;
+  right: 9px;
   top: 15px;
-  width: 46px;
-  height: 46px;
-  cursor: pointer;
-}
-.nav__btn:before, .nav__btn:after {
-  content: "";
   display: block;
   width: 28px;
   height: 4px;
   border-radius: 2px;
   background: #096DD3;
-  -webkit-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
-  -webkit-transition: background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-  transition: background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-  transition: transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3), background-color 0.3s;
-  transition: transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3), background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
+    transition all 1s
 }
-.nav__btn:before {
-  margin-bottom: 10px;
+.after{
+    animation:mymove1 2s 1;
+    transform: translateY(-4px) rotate(-225deg);
+  }
+  .before{
+    animation:mymove2 2s 1;
+    transform: translateY(6px) rotate(225deg);
+    }
+#nav_after{
+  margin-top 10px;
+  }
+@keyframes mymove1
+{
+0%   {transform: translateY(0px) rotate(0deg);}
+100% {transform: translateY(-4px) rotate(-225deg);}
 }
-.nav__btn:hover:before, .nav__btn:hover:after {
-  background: #00bdea;
+@keyframes mymove2
+{
+0%   {transform: translateY(0px) rotate(0deg);}
+100% {transform: translateY(6px) rotate(225deg);}
 }
-.nav__cb:checked ~ .nav__btn:before {
-  -webkit-transform: translateY(7px) rotate(-225deg);
-          transform: translateY(7px) rotate(-225deg);
-}
-.nav__cb:checked ~ .nav__btn:after {
-  -webkit-transform: translateY(-7px) rotate(225deg);
-          transform: translateY(-7px) rotate(225deg);
-}
-.nav__cb {
-  z-index: -1000;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-.smart-object-title{
-  position: absolute; 
-  transform-style: flat; 
-  backface-visibility: hidden; 
-  transform: translate3d(0px, 0px, 0px); 
-  left: 41.9%; 
-  top: 130px;
-  op: 189px; 
-  right: 0px; width: 279px; 
-  height: 415px; 
-  margin: 0px 40px 0px 0px; 
-  display: block; cursor: pointer; 
-  z-index: 100; 
-  background: transparent;
-}
-.smart-object-right-top{
-  width: 46px; height: 46px; 
-  border-radius: 23px; 
-  position: absolute; 
-  right: 40px;
-  background-color: rgb(255, 255, 255);
-  bottom: 135px; 
-}
-.icon-d{
-  width: 40px;
-  height: 40px;
-  border-radius: 23px;
-  position: absolute;
-  left: 33px;
-  background-color: #fff;
-  bottom: 150px;
-  transform: rotate(0deg);
-  transition all 0.5s
-}
-.smart-object-right-top:hover{
-  background: rgba(144,144,144,0.3)
-}
-.smart-object-right-bottom{
-  width: 46px; height: 46px; border-radius: 23px; 
-  position: absolute; background-color: rgb(255, 255, 255); right: 40px;
-  bottom: 85px; 
-}
-.smart-object-right-bottom:hover{
-  background: rgba(144,144,144,0.3)
-}
-.smart-object-txt{
-  text-align center
-  width 100%
-  height 277px
-}
-.ico-title{
-  display none
-  position relative
-  left 30px
-  top 45px
-  width 200px
-  height 20px
-  color rgb(255, 251, 240)
-}
-
-.smart-object-intro{
-  position: relative;
-  left: 35px;
-  width: 220px;
-}
-// left 
-#smart-object-left{
-  position: absolute; transform-style: flat; backface-visibility: hidden; transform: matrix(1, 0, 0, 1, 0, 0); top: 0px; left: 0px; right: 0px; bottom: 0px; display: block;
-  background-color:black
-  transform :translateX(-1366px)
-}
-.nav{
-    color: #B9BFBB
-    font-size 32px
-}
-.nav:hover,.one{
-    background  linear-gradient(to bottom right, #2fbec3, #B9BFBB)
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.left-img{
-  width 300px
-  height 550px
-  position absolute
-  right 280px
-  top 35px
-}
-.smart-object-txt:hover
- .icon-d{
-    transform: rotate(180deg);
-    transition all 0.5s
-}
-.ico-title{
-  display block
-}
+#LAYER_TOP:hover
+  #nav_before,#nav_after{
+      background: #00bdea;
+    }
 </style>>

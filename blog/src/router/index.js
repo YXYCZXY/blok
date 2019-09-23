@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
+import Right from '../view/Right/blog.vue'
 
 Vue.use(Router)
 
@@ -9,7 +10,15 @@ export default new Router({
     {
       path: '/',
       name: 'Login',
-      component: Login
-    }
+      component: Login,
+      children:[
+        {
+          path:'Right',
+          components:{
+            blg:Right
+            }
+        }
+      ]
+    },
   ]
 })
