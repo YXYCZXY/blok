@@ -89,7 +89,7 @@
                   <div class="nav"  :class="{'navone':style1}">Music</div>
                   <div class="nav" :class="{'navone':style2}" @click="blog">Weblog</div>
                   <div class="nav" :class="{'navone':style3}">Photo  Sessions</div>
-                  <div class="nav" :class="{'navone':style4}"  style="margin-top:20px;">Author</div>
+                  <div class="nav" :class="{'navone':style4}"  @click="author" style="margin-top:20px;">Author</div>
                 </div>
               </div>
             </div>
@@ -359,6 +359,18 @@ export default {
       this.navClass = false
       this.itemNav = 3
       this.$router.push('/Right')
+      let min = document.getElementById('LAYER_MID')
+        min.style.transform = 'translateX(-1366px)'
+        min.style.transition = 'all 2s'
+      let a = document.getElementById('smart-object-right')
+        a.style.transform = 'translateX(2732px)'
+        a.style.transition = 'all 2s'
+    },
+    author(){
+      this.style2 = false; this.style0 = false;this.style1 = false;this.style3 = false;this.style4 = true;
+      this.navClass = false
+      this.itemNav = 3
+      this.$router.push('/Author')
       let min = document.getElementById('LAYER_MID')
         min.style.transform = 'translateX(-1366px)'
         min.style.transition = 'all 2s'
