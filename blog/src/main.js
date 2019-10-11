@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import '../src/assets/iconfont/iconfont.css'
 import animated from 'animate.css'
+// import 'font-awesome/css/font-awesome.min.css'
 
 /* eslint-disable no-new */
 new Vue({
