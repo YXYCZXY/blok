@@ -86,7 +86,7 @@
                 <div class="smart-object-title" >
                   <!-- 动态使得点击改变颜色  :class="{'navone':style0}"   -->
                   <div class="nav " :class="{'navone':style0}" @click="home">Home</div>
-                  <div class="nav"  :class="{'navone':style1}">Music</div>
+                  <div class="nav"  :class="{'navone':style1}" @click="music">Music</div>
                   <div class="nav" :class="{'navone':style2}" @click="blog">Weblog</div>
                   <div class="nav" :class="{'navone':style3}">Photo  Sessions</div>
                   <div class="nav" :class="{'navone':style4}"  @click="author" style="margin-top:20px;">Author</div>
@@ -371,6 +371,18 @@ export default {
       this.navClass = false
       this.itemNav = 3
       this.$router.push('/Author')
+      let min = document.getElementById('LAYER_MID')
+        min.style.transform = 'translateX(-1366px)'
+        min.style.transition = 'all 2s'
+      let a = document.getElementById('smart-object-right')
+        a.style.transform = 'translateX(2732px)'
+        a.style.transition = 'all 2s'
+    },
+    music(){
+      this.style2 = false; this.style0 = false;this.style1 = true;this.style3 = false;this.style4 = false;
+      this.navClass = false
+      this.itemNav = 3
+      this.$router.push('/Music')
       let min = document.getElementById('LAYER_MID')
         min.style.transform = 'translateX(-1366px)'
         min.style.transition = 'all 2s'

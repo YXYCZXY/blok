@@ -274,6 +274,7 @@ export default {
 
     },
     get1(e){
+      this.menu = false
       console.log(e.target.id)
       let a = document.getElementById('warpp')
       const scroll = (number = 0, time) => {

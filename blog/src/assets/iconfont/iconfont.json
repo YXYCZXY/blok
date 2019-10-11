@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "688140",
+      "name": "暂停",
+      "font_class": "stop",
+      "unicode": "e7af",
+      "unicode_decimal": 59311
+    },
+    {
+      "icon_id": "781701",
+      "name": "上一曲1-01",
+      "font_class": "last",
+      "unicode": "e6e1",
+      "unicode_decimal": 59105
+    },
+    {
+      "icon_id": "781774",
+      "name": "下一曲1-01",
+      "font_class": "naxt",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
+      "icon_id": "3217845",
+      "name": "播放",
+      "font_class": "play",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
       "icon_id": "3228828",
       "name": "经验",
       "font_class": "jy",
@@ -39,6 +67,13 @@
       "font_class": "d",
       "unicode": "ec1c",
       "unicode_decimal": 60444
+    },
+    {
+      "icon_id": "5203280",
+      "name": "上",
+      "font_class": "shang",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
     },
     {
       "icon_id": "5618158",
