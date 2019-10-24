@@ -1,15 +1,23 @@
 <template>
+<!-- 基本完成 考虑小图标播放 而且还有 退出页面继续播放 vuex? -->
 <div id="two" style="transform :translateX(1366px);position: absolute; transform-style: flat; backface-visibility: hidden; width: 100%; height: 100%; overflow: hidden;">
+      <div class="start" v-show="start_a" style="z-index:100;width: 100%; height: 100%; position: absolute;overflow: hidden;background-color:#FDD;text-align: center;">
+          <div><a class="start_a" >Vue Music</a></div>
+      </div>
   <div class="Vue_Music" style="width: 100%; height: 100%; overflow: hidden;">
       <div id="start_bg" v-show="start_b" >    </div>
 
       <transition id="down" name="cead" leave-active-class="animated fadeOut" >
-        <!-- <div class="start" v-show="start_a" style="width: 100%; height: 100%; overflow: hidden;background-color:#FDD;text-align: center;">
-          <div><a class="start_a" >Vue Music</a></div>
-        </div> -->
       </transition>
-      <div class="set_15_social-button Vskype" v-show="start_b" @click="searchMusic" @mouseover="over()" ><i class="fa fa-skype"></i></div>
-      <input class="music_search" id="name_search" type="text"  v-show="mucSh" placeholder='请输入搜索信息' >
+
+      
+      <div class="search__box">
+        <input class="search__txt"  id="name_search" type="text" name="" placeholder="请输入搜索信息">
+        <a class="search__btn" href="#">
+            <i class="fa fa-skype" @click="searchMusic"></i>
+        </a>
+      </div>
+
       <div class="music_content"  v-show="start_b">
         <div class="music_title">
           <el-table
@@ -67,8 +75,8 @@
           </div>
 
           <div id="music_song_list4" style="width: 100px;height: 100px;position: absolute;bottom:30px;right:30px" @click="list4">
-             <el-tooltip content="琉璃的歌" placement="bottom" >
-              <img src="../../assets/image/music/4.jpg" style="width: 100px;height: 100px; background-repeat:no-repeat;background-size:100% 100%;-moz-background-size:100% 100%;">
+             <el-tooltip content="热歌榜" placement="bottom" >
+              <img src="https://p2.music.126.net/GhhuF6Ep5Tq9IEvLsyCN7w==/18708190348409091.jpg?param=200y200" style="width: 100px;height: 100px; background-repeat:no-repeat;background-size:100% 100%;-moz-background-size:100% 100%;">
             </el-tooltip>
           </div>
         </div>
@@ -98,8 +106,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      mucSh:false,
-      // start_a:true,
+      start_a:true,
       start_b:true,
       style1:true,
       style2:false,
@@ -156,9 +163,6 @@ export default {
         console.log('???',this.musicItem)
         document.getElementById('name_search').value = ''
       }
-    },
-    over(){
-      this.mucSh = true
     },
     out(){
       this.mucSh = false
@@ -245,7 +249,7 @@ export default {
     list4(){
        this.out()
       this.tableData = []
-      this.playListId = '2897399288'
+      this.playListId = '3778678'
       this.getDataMusic()
       this.$message('个人 | 收藏 | 电音')
       this.changSongList()
@@ -293,13 +297,13 @@ export default {
       for(let i = 0 ;i<a;i++){
         let b = document.getElementsByName('img')[i]
         b.src = 'http://imgup04.iefans.net/iefans/2019-03/07/13/15519372516310_0.jpg'
-        // document.getElementsByClassName('el-table__row')[i].style.backgroundColor = ''
+        document.getElementsByClassName('el-table__row')[i].style.backgroundColor = ''
       }
         let i = this.indexItem
         let img = document.getElementsByName('img')[i]
         img.src = 'http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20171010/37b899e3940b459dafabd58aca464b78.gif'
         this.$refs.table.bodyWrapper.scrollTop =81*i;
-        // document.getElementsByClassName('el-table__row')[i].style.backgroundColor = '#dee1e6'
+        document.getElementsByClassName('el-table__row')[i].style.backgroundColor = '#dee1e6'
           let Audio = document.getElementById('audio')
           Audio.setAttribute('src',d.src)
           this.pauseMusic = Audio
@@ -324,17 +328,17 @@ export default {
         let d = {
           src:res.data.url
         }
-      let a = document.getElementsByTagName('img').length -4
+      let a = document.getElementsByName('img').length 
       for(let i = 0 ;i<a;i++){
-        let b = document.getElementsByTagName('img')[i]
+        let b = document.getElementsByName('img')[i]
         b.src = 'http://imgup04.iefans.net/iefans/2019-03/07/13/15519372516310_0.jpg'
-        // document.getElementsByClassName('el-table__row')[i].style.backgroundColor = ''
+        document.getElementsByClassName('el-table__row')[i].style.backgroundColor = ''
       }
         let i = this.indexItem
-        let img = document.getElementsByTagName('img')[i]
+        let img = document.getElementsByName('img')[i]
         img.src = 'http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20171010/37b899e3940b459dafabd58aca464b78.gif'
         this.$refs.table.bodyWrapper.scrollTop =81*i;
-        // document.getElementsByClassName('el-table__row')[i].style.backgroundColor = '#dee1e6'
+        document.getElementsByClassName('el-table__row')[i].style.backgroundColor = '#dee1e6'
         let nextAudio = document.getElementById('audio')
         nextAudio.setAttribute('src',d.src)
         nextAudio.play()
@@ -399,8 +403,7 @@ export default {
     },
     start(){
       setTimeout(() => {
-        // this.start_a = false
-        // this.start_b = true
+        this.start_a = false
         this.$message('电 | 音 | 榜')
       }, 2000);
       setTimeout(() => {
@@ -470,17 +473,17 @@ body,html{
   margin: 0px;
   padding: 0px;
 }
-// .start_a{
-//   position: absolute;
-//   left: 19%;
-//     top: 30%;
-//     font-size: 42px;
-//     zoom: 4;
-//     margin :0 0 42px;
-//     background : linear-gradient(to bottom right, #2fbec3, #70d12f);
-//     -webkit-background-clip: text;
-//     -webkit-text-fill-color: transparent;
-// }
+.start_a{
+  position: absolute;
+  left: 19%;
+    top: 30%;
+    font-size: 42px;
+    zoom: 4;
+    margin :0 0 42px;
+    background : linear-gradient(to bottom right, #2fbec3, #70d12f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 #start_bg{
   width: 100%; height: 100%;
   background-image: url('../../assets/image/music/bg.jpg');
@@ -593,74 +596,58 @@ body,html{
     right: 12px;
     top: 40px;
 }
+.search__box {
+  position: absolute;
+  top: 33px;
+  left: 18%;
+  transform: translate(-50%, -50%);
+  background: #2f3640;
+  height: 40px;
+  border-radius: 40px;
+  padding: 10px 15px 10px 15px;
+}
 
-.set_15_social-button {
-  display: inline-block;
-  background-color: #fff;
-  width: 60px;
-  height:60px;
-  cursor:pointer;
-  line-height:60px;
-  margin: 0 10px;
-  text-align: center;
-  position: absolute;
-  overflow: hidden;
-  opacity: .99;
-  top: 3px;
-  left: 90px;
-  border-radius: 28%;
-  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.05);
-  -webkit-transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
-  transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
+.search__box:hover > .search__txt {
+  width: 240px;
+  padding: 0 6px;
 }
-.set_15_social-button:before {
-  content: '';
-  background-color: #000;
-  width: 120%;
-  height: 120%;
-  position: absolute;
-  top: 90%;
-  left: -110%;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-  -webkit-transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
-  transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
+
+.search__box:hover > .search__btn {
+  background: #fff;
 }
-.set_15_social-button .fa {
-  font-size: 38px;
-  vertical-align: middle;
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
-  -webkit-transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
-  transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
+.search__box:hover > .search__btn i {
+  color: #34ace0;
+  transition: 0.9s;
 }
-.set_15_social-button.Vskype:before {
-  background-color: #00AFF0;
+
+.search__btn {
+  color: #e84118;
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #34ace0;
+  display: flex;
+  justify-content: center;
+  align-item: center;
+  text-decoration: none;
 }
-.set_15_social-button.Vskype .fa {
-  color: #00AFF0;
-}
-.set_15_social-button:focus:before, .set_15_social-button:hover:before {
-  top: -10%;
-  left: -10%;
-}
-.set_15_social-button:focus .fa, .set_15_social-button:hover .fa {
+.search__btn i {
+  line-height: 40px;
   color: #fff;
-  -webkit-transform: scale(1);
-  transform: scale(1);
+  transition: 0.9s;
 }
-.music_search{
-    position: absolute;
-    overflow: hidden;
-    opacity: .99;
-    top: 10px;
-    left: 165px;
-    border-radius: 10px;
-    width: 300px;
-    height: 40px;
-    outline:none;
-    font-size: 25px;
-    background-color: transparent;
-    color: #2fbec3
+
+.search__txt {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: #fff;
+  font-size: 16px;
+  transition: 0.2s;
+  line-height: 40px;
+  width: 0;
 }
 </style>

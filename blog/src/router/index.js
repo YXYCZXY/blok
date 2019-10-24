@@ -5,6 +5,7 @@ import Right from '../view/Right/blog.vue'
 import Music from '../view/Right/music.vue'
 import Photo from '../view/Right/photo.vue'
 import Author from '../view/Right/author.vue'
+import Beijing from '../view/Right/beijing.vue'
 
 Vue.use(Router)
 
@@ -16,29 +17,36 @@ export default new Router({
       component: Login,
       children:[
         {
-          path:'Right',
+          path:'/Right',
           components:{
             blg:Right
             }
         },
         {
-          path:'Music',
+          path:'/Music',
           components: {
             mic:Music
           }
         },
         {
-          path:'Photo',
+          path:'/Photo',
           components: {
             mic:Photo
-          }
+          },
+          children:[
+            {
+              path:'/Photo/Beijing',
+              name:'beijing',
+              component:Beijing
+            }
+          ]
         },
         {
-          path:'Author',
+          path:'/Author',
           components: {
             mic:Author
           }
-        }
+        },
       ]
     },
   ]

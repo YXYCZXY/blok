@@ -1,4 +1,5 @@
 <template>
+<!-- 需要博客封面 再进行跳转 -->
   <div id="one" style="transform :translateX(1366px);position: absolute; transform-style: flat; backface-visibility: hidden; width: 100%; height: 100%; overflow: hidden;">
     <div id="left" style="overflow:auto;width:100%;height: 100%;background-color:black;float:left;overflow-x:hidden">
       <div v-for="(item,index) in imgData" :key="item.id" style="width: 674.5px;height:455px;float:left;position:relative;">
@@ -52,26 +53,6 @@ export default {
       this.seen = false
         this.curr = null;
     }
-  // getData(){
-  //   for(let i = 0 ;i<this.imgData.length;i++){
-  //     let a = document.createElement("div")
-  //     a.setAttribute("id","aaa"+i)
-  //     a.style.cssText = `  width: 674.5px;height:455px;float:left;`
-  //     document.getElementById("left").appendChild(a);
-  //     let b = document.createElement("div")
-  //     b.setAttribute("id","bbb"+i)
-  //     b.style.cssText = `  width: 674.5px;height:455px;float:left;z-index:0;position:relative`
-  //     document.getElementById("aaa"+i).appendChild(b);
-  //     let c= document.createElement("img")
-  //     c.setAttribute("src",`${this.imgData[i].src}`)
-  //     c.style.cssText = `  width: 674.5px;height:455px;float:left;`
-  //     document.getElementById("bbb"+i).appendChild(c);
-  //     let d = document.createElement("div")
-  //     d.setAttribute("id","ddd"+i)
-  //     d.style.cssText = `  width: 635px;height:415px;float:left;background: rgba(32, 32, 33, 0.8);position:absolute;margin-top: 20px;margin-left: 20px;display:none`
-  //     document.getElementById("bbb"+i).appendChild(d);
-  //   }
-  // }
   },
   watch: {
     seen(val){

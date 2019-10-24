@@ -38,6 +38,7 @@
           </div>
       </div>
       <!-- <transition id="down" name="cead" enter-active-class="animated slideInUp" leave-active-class="animated slideOutUp" > -->
+      <!-- 点击跳转方法优化 动态? -->
       <ul v-show="menu" style=" text-align:center;width: 176px;height: 240px;padding: 0px;margin: 0px;background:black;position: absolute;top: 55px;right: 298px;border-radius: 16px;z-index:100">
           <li id="he" class="author_li" @click="get1" >Home</li>
           <li id="mf" class="author_li" @click="get1" style="background: #33cc99" >Myself</li>
@@ -66,8 +67,7 @@
 
     <div style=" position: relative; transform-style: flat; backface-visibility: hidden; transform: translate3d(0px, 0px, 0px);  background-color: white; height: 100%; min-height: 605px; padding-bottom: 0px; width: 1309px;">
       <div style="width:1307px;height:64px;border:1px solid #fff;border-top-color: #999999;display:block;">
-        <div style="position: absolute;left: 33%;top: -5px;width:450px;height:64px;
-        background-image :url('http://www.diyiziti.com/Res/Images//Temp/427/8c52328273f5403aa9cb5ad880af90c7.PNG')"></div>
+        <div class="do_bg" style="position: absolute;left: 33%;top: -5px;width:450px;height:64px;"></div>
       </div>
       
       <div class="whtdo" style="border-bottom-color: #00a3e2;">
@@ -97,13 +97,13 @@
       <div class="whtdo" style="border-bottom-color: #6441a5;">
         <div class="iconfont icon-GIS" style="width:80px;height:80px;background-color: #6441a5;transform: rotate(45deg);position: relative;top: -60px;left: 150px;"></div>
         <h3 style="margin: -20px">GIS</h3>
-        <p style="margin-top: 45px;color: #676666;">能够使用GIS专业的知识去解决问题</p>
+        <p style="margin-top: 45px;color: #676666;">GIS+互联网 让GIS改变生活</p>
       </div>
 
       <div class="whtdo" style="border-bottom-color: brown;">
         <div class="iconfont icon-dt" style="width:80px;height:80px;background-color: brown;transform: rotate(45deg);position: relative;top: -60px;left: 150px;"></div>
         <h3 style="margin: -20px">地图设计</h3>
-        <p style="margin-top: 45px;color: #676666;">关于地图方面能够提供解决方法 分析 设计地图</p>
+        <p style="margin-top: 45px;color: #676666;">地图+互联网 让地图走进生活</p>
       </div>
     </div>
     <hr style="margin:0;width:1307px;height:1px" />
@@ -270,9 +270,6 @@ export default {
         this.menuItem = false
       }
     },
-    soleat(){
-
-    },
     get1(e){
       this.menu = false
       console.log(e.target.id)
@@ -295,6 +292,7 @@ export default {
               }
           }, spacingTime);
       };
+      // 滚动距离
       switch (e.target.id) {
         case 'he':
           scroll(0,200)
@@ -327,6 +325,9 @@ export default {
 body,html{
   margin: 0px;
   padding: 0px;
+}
+.do_bg{
+  background-image :url('../../assets/image/author/what.png')
 }
 .blog:hover{
   color:blue

@@ -3,6 +3,7 @@
   <div id="LAYER_ALL">
     <div id="LAYER_MID">
       <!-- 动态页面 -->
+      <!-- 关于路由的使用 这个需要到时写一个博客 研究一下 -->
         <router-view name="blg"></router-view>
         <router-view name="mic"></router-view>
         <router-view name="pho"></router-view>
@@ -85,10 +86,11 @@
                 <div class="smart-object-bg2"></div>
                 <div class="smart-object-title" >
                   <!-- 动态使得点击改变颜色  :class="{'navone':style0}"   -->
+                  <!-- 这个应该有改进的方法 -->
                   <div class="nav " :class="{'navone':style0}" @click="home">Home</div>
                   <div class="nav"  :class="{'navone':style1}" @click="music">Music</div>
                   <div class="nav" :class="{'navone':style2}" @click="blog">Weblog</div>
-                  <div class="nav" :class="{'navone':style3}">Photo  Sessions</div>
+                  <div class="nav" :class="{'navone':style3}" @click="photo">Photo  Sessions</div>
                   <div class="nav" :class="{'navone':style4}"  @click="author" style="margin-top:20px;">Author</div>
                 </div>
               </div>
@@ -99,6 +101,7 @@
     </div>
 
     <!-- 控制icon 控制页面变化 -->
+    <!-- 是否有更好的方法 -->
     <div id="LAYER_TOP"   @click="change">
       <label id="nav_before"></label>
       <label id="nav_after"  ></label>
@@ -167,6 +170,7 @@ export default {
   },
   methods: {
     // 展示文章内容
+    // 位置变化 需要优化 需要研究 列出优化计划
     seeMore(){
       this.navClass = true
       if(this.hIndex == 0){
@@ -195,6 +199,7 @@ export default {
         this.cgItem = 5
       }
     },
+    // 获取json-server中的数据
     getDate(){
       axios.get('http://localhost:3000/h').then((res)=>{
         this.h = res.data
@@ -206,6 +211,8 @@ export default {
         this.title = res.data
       })
     },
+    // 上下移动控制
+    // 节流方法研究
     last(){
       document.getElementById('up').style.display = 'block'
       document.getElementById('down').style.display = 'none'
@@ -222,9 +229,6 @@ export default {
       if( this.hIndex == 4 ){
         this.hIndex = 0
       }
-      setTimeout(function(){
-        _this._begin()
-      },8000)
     },
     next(){
       document.getElementById('up').style.display = 'none'
@@ -245,11 +249,12 @@ export default {
       setTimeout(function(){
       document.getElementById('up').style.display = 'block'
       document.getElementById('down').style.display = 'none'
-        _this._begin()
-      },8000)
+      },5000)
     },
+    // 自动播放
     autoPlay(){
       this.currentIndex++
+      console.log('问题2',this.currentIndex)
       if(this.currentIndex == 4 ){
           this.currentIndex = 0
       }
@@ -258,15 +263,16 @@ export default {
         this.hIndex = 0
       }
     } ,
+    // 启动自动播放
     _begin(){
       let _this = this
       this.carouselTimer = setInterval(function(){
          _this.autoPlay()
-      },8000)
+      },5000)
       document.getElementById('up').style.display = 'block'
       document.getElementById('down').style.display = 'none'
     },
-    // 图标
+    // 图标 变化 需要优化
     change(){
        let _this = this
       if(this.navClass == false){
@@ -342,7 +348,7 @@ export default {
       }
       }
     },
-    // 导航 
+    // 导航  样式控制需要优化
     home(){
        this.style2 = false; this.style0 = true;this.style1 = false;this.style3 = false;this.style4 = false;
          let a = document.getElementById('smart-object-left')
@@ -359,6 +365,18 @@ export default {
       this.navClass = false
       this.itemNav = 3
       this.$router.push('/Right')
+      let min = document.getElementById('LAYER_MID')
+        min.style.transform = 'translateX(-1366px)'
+        min.style.transition = 'all 2s'
+      let a = document.getElementById('smart-object-right')
+        a.style.transform = 'translateX(2732px)'
+        a.style.transition = 'all 2s'
+    },
+    photo(){
+      this.style2 = false; this.style0 = false;this.style1 = false;this.style3 = true;this.style4 = false;
+      this.navClass = false
+      this.itemNav = 3
+      this.$router.push('/Photo')
       let min = document.getElementById('LAYER_MID')
         min.style.transform = 'translateX(-1366px)'
         min.style.transition = 'all 2s'
@@ -391,6 +409,7 @@ export default {
         a.style.transition = 'all 2s'
     }
   },
+  // 检测器
   watch: {
     isDisabled(val){
       let _this = this
@@ -398,8 +417,11 @@ export default {
       setTimeout(function(){
         _this.isDisabled = false
       },5000)
+      }else{
+        this._begin()
       }
     },
+    // 样式改变需要优化
     cgItem(val){
       let _this = this
        if(this.cgItem == 0){
